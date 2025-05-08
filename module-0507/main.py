@@ -1,11 +1,12 @@
-from the_last_code_04_20.compute_pretrained_embeddings import get_embeddings
+from compute_pretrained_embeddings import get_embeddings
 import open_clip
 import numpy as np
-from datasets import load_from_disk
+from datasets import load_dataset
 from PIL import Image
 from torch.utils.data import DataLoader
 import torch
 import os
+from tqdm import tqdm
 
 model, preprocess_train, preprocess_val = open_clip.create_model_and_transforms('hf-hub:laion/CLIP-ViT-B-16-laion2B-s34B-b88K')
 tokenizer = open_clip.get_tokenizer('hf-hub:laion/CLIP-ViT-B-16-laion2B-s34B-b88K')#文本的分词器 对于图片用不上
@@ -26,11 +27,12 @@ class ImageDataset(torch.utils.data.Dataset):
         path = str(idx)
         return image, path ,idx
     
-ds = load_from_disk("data/cats_vs_dogs")["train"]
-image_dataset = ImageDataset(ds, preprocess_val)
+ds = load_dataset('Maysee/tiny-imagenet', split='train')#后续数据集在这里修改即可
+image_dataset = ImageDataset(ds, preprocess_val)#这里使用的是预训练模型的预处理函数
 batch_size = 32
+
 def custom_collate_fn(batch):
-    images = torch.stack([item[0] for item in batch])
+    images = torch.stack([item[0] for item in batch])#转换为批次张量
     paths = [item[1] for item in batch]
     indices = torch.tensor([item[2] for item in batch])
     return images, paths, indices
@@ -42,7 +44,7 @@ emb_memory_loc = "embeddings/image_embeddings.npy"
 paths_memory_loc = "embeddings/image_paths.npy"
 dataset_size = len(ds)
 emb_size = 512
-emb_array = np.memmap(emb_memory_loc, dtype='float32', mode='w+', shape=(dataset_size, emb_size))
+emb_array = np.memmap(emb_memory_loc, dtype='float32', mode='w+', shape=(dataset_size, emb_size))#此处需要注意GPU张量要先转移到CPU然后再转为numpy数组
 path_array = np.memmap(paths_memory_loc, dtype=path_str_type, mode='w+', shape=(dataset_size,))
 
 print(f"数据集大小: {dataset_size}, 嵌入维度: {emb_size}")

@@ -57,5 +57,5 @@ def get_embeddings(model, dataloader, emd_memmap, paths_memmap):
             print(f"data_batch的形状是{data_batch.shape}")
             data_batch = data_batch.to(device)
             encodings = model.encode_image(data_batch)  # 修改为 encode_image
-            emd_memmap[batch_indices] = normalize(encodings, dim=1)
+            emd_memmap[batch_indices] = normalize(encodings, dim=1).cpu().numpy()  # GPU 计算 → 复制到 CPU → 转换为 NumPy 或保存到磁盘
             paths_memmap[batch_indices] = paths_batch

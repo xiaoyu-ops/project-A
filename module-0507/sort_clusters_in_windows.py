@@ -3,7 +3,7 @@ import numpy as np
 import logging
 import os
 import sys
-from clustering.sort_clusters import assign_and_sort_clusters
+from sort_clusters import assign_and_sort_clusters
 
 # 添加项目根目录到 Python 路径，确保模块导入正确
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -17,7 +17,7 @@ handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s -
 logger.addHandler(handler)
 
 # 配置文件路径
-config_file = "clustering/configs/openclip/clustering_configs.yaml"
+config_file = "configs/openclip/clustering_configs.yaml"
 logger.info(f"加载配置文件: {config_file}")
 
 # 检查文件是否存在

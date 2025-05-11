@@ -2,7 +2,7 @@ import os
 import argparse
 import yaml
 import numpy as np
-from datasets import load_from_disk, Dataset
+from datasets import load_dataset, Dataset
 from tqdm import tqdm
 from pathlib import Path
 import shutil
@@ -97,7 +97,7 @@ def main():
     # 加载原始数据集
     # 这里假设原始数据集与main.py中使用的是同一个
     print("加载原始数据集...")
-    original_dataset = load_from_disk("data/cats_vs_dogs")["train"]
+    original_dataset = load_dataset('Maysee/tiny-imagenet', split='train')
     
     # 创建去重后的数据集
     create_deduped_dataset(original_dataset, kept_indices, args.output_folder)

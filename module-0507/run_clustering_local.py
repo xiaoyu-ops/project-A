@@ -5,7 +5,7 @@ import logging
 import os
 import time
 import sys
-from clustering.clustering import compute_centroids
+from clustering import compute_centroids
 from tqdm import tqdm
 
 # 设置环境变量以避免OpenMP警告
@@ -19,7 +19,7 @@ handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s -
 logger.addHandler(handler)
 
 # 配置文件路径
-config_file = "clustering/configs/openclip/clustering_configs.yaml"
+config_file = "configs/openclip/clustering_configs.yaml"
 logger.info(f"加载配置文件: {config_file}")
 
 # 检查文件是否存在
@@ -72,7 +72,7 @@ os.makedirs(sorted_clusters_folder, exist_ok=True)
 logger.info(f"结果将保存到: {save_folder}")
 
 # 修改compute_centroids函数，添加进度显示
-from clustering.clustering import compute_centroids as original_compute_centroids
+from clustering import compute_centroids as original_compute_centroids
 
 def compute_centroids_with_progress(data, ncentroids, niter, seed, Kmeans_with_cos_dist, save_folder, logger, verbose):
     """添加进度条的compute_centroids函数包装器"""

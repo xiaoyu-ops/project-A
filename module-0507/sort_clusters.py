@@ -85,7 +85,7 @@ def assign_and_sort_clusters(
     # Step 3: Sort each class/cluster
     # 步骤 3：对每个类/簇进行排序
     logger.info("Ranking...")
-    kmeans_centroids_file_loc = pathlib.Path(save_folder, "centroids.npy")
+    kmeans_centroids_file_loc = pathlib.Path(save_folder, "kmeans_centroids.npy")
     dist_to_cent_file_loc = pathlib.Path(save_folder, "dist_to_cent.npy")
     nearest_cent_file_loc = pathlib.Path(save_folder, "nearest_cent.npy")
     kmeans_centroids = np.load(kmeans_centroids_file_loc)

@@ -12,6 +12,8 @@ def example_usage():
 
 if __name__ == '__main__':
     example_usage()
+    tiny_imagnenet = load_dataset('Maysee/tiny-imagenet', split='train')
+    print(len(tiny_imagnenet))
     # tiny_imagenet = load_dataset('Maysee/tiny-imagenet', split='train')
     # plt.figure(figsize=(15, 3))
     # for i in range(5):

@@ -1,10 +1,10 @@
 
-save_folder: "clustering\\results\\semdedup_result"
-sorted_clusters_path: "clustering\\results\\sorted_clusters"
+save_folder: "D:\\桌面\\Project-A\\clustering\\results\\ncentroids_2000\\semdedup_result"
+sorted_clusters_path: "D:\\桌面\\Project-A\\clustering\\results\\ncentroids_2000\\sorted_clusters"
 # -- number of clusters
 # --簇的数量
-num_clusters: 800
-embs_memory_loc: "embeddings\\image_embeddings.npy"
+num_clusters: 2000
+embs_memory_loc: "D:\\桌面\\Project-A\\embeddings\\image_embeddings.npy"
 # -- dataset size
 dataset_size: 100000
 # -- embeddings size

@@ -22,25 +22,30 @@ from typing import Union, Optional
 
 def faiss_index_to_gpu(cpu_index):
     """
-    Convert a Faiss CPU index to a GPU index.
-
+    尝试将 FAISS 索引转移到 GPU，如果 GPU 功能不可用则返回 CPU 索引
     """
-    # Configure GPU cloner options
-    # -- 配置 GPU 克隆器选项
-    cloner_options = faiss.GpuClonerOptions()
-    cloner_options.useFloat16 = False
-    cloner_options.usePrecomputed = False
-    cloner_options.indicesOptions = faiss.INDICES_CPU
-
-    # Configure Faiss GPU resources
-    # -- 配置 Faiss GPU 资源
-    gpu_resources = faiss.StandardGpuResources()
-
-    # Convert CPU index to GPU index
-    # -- 将 CPU 索引转换为 GPU 索引
-    gpu_index = faiss.index_cpu_to_gpu(gpu_resources, 0, cpu_index, cloner_options)
-
-    return gpu_index
+    try:
+        # 检查是否有 GPU 支持
+        if hasattr(faiss, 'GpuClonerOptions'):
+            # 有 GPU 支持，执行原始转换逻辑
+            cloner_options = faiss.GpuClonerOptions()
+            cloner_options.useFloat16 = False
+            cloner_options.usePrecomputed = False
+            cloner_options.indicesOptions = faiss.INDICES_CPU
+            
+            # 配置 Faiss GPU 资源
+            gpu_resources = faiss.StandardGpuResources()
+            
+            # 将 CPU 索引转换为 GPU 索引
+            gpu_index = faiss.index_cpu_to_gpu(gpu_resources, 0, cpu_index, cloner_options)
+            return gpu_index
+        else:
+            # 没有 GPU 支持，返回原始 CPU 索引
+            print("FAISS GPU 功能不可用，将使用 CPU 版本继续...")
+            return cpu_index
+    except Exception as e:
+        print(f"转移到 GPU 时出错: {e}，将使用 CPU 版本继续...")
+        return cpu_index
 
 
 def compute_centroids(

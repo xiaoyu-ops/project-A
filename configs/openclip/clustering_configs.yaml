@@ -4,10 +4,10 @@ Kmeans_with_cos_dist: True # True for using cosine similarity for kmeans cluster
 emb_memory_loc: "embeddings\\image_embeddings.npy"
 text_emb_memory_loc: None
 paths_memory_loc: "embeddings\\image_paths.npy"
-sorted_clusters_file_loc: "clustering\\results\\sorted_clusters"
-save_folder: "clustering\\results"
+sorted_clusters_file_loc: "clustering\\results\\ncentroids_2000\\sorted_clusters"
+save_folder: "clustering\\results\\ncentroids_2000"
 path_str_dtype: "S24"
-ncentroids: 800
+ncentroids: 2000 # 如果按39个为一族那么ncentroids应该为2564
 dataset_size:  100000 
 emb_size: 512
 niter: 100

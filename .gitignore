@@ -183,4 +183,5 @@ embeddings/image_embeddings.npy
 dataset/Maysee___tiny-imagenet/default/0.0.0/5a77092c28e51558c5586e9c5eb71a7e17a5e43f/tiny-imagenet-valid.arrow
 dataset/Maysee___tiny-imagenet/default/0.0.0/5a77092c28e51558c5586e9c5eb71a7e17a5e43f/tiny-imagenet-train.arrow
 clustering
-the_final_result/0.15
+the_final_result
+dataset_test

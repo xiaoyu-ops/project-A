@@ -31,7 +31,7 @@ if not os.path.exists(config_file):
     exit(1)
 
 # 加载聚类参数
-with open(config_file, 'r') as y_file:
+with open(config_file, 'r', encoding='utf-8') as y_file:
     params = yaml.load(y_file, Loader=yaml.FullLoader)
 
 # 设置随机种子
